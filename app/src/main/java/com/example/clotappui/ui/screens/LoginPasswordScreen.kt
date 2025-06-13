@@ -37,7 +37,6 @@ fun LoginPasswordScreen(
             color = Color.White,
             modifier = Modifier.fillMaxWidth().padding(bottom = 24.dp)
         )
-
         TextField(
             value = password,
             onValueChange = { password = it },
