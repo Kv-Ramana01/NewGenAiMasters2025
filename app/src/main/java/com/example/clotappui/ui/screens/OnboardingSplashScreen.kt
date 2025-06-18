@@ -13,13 +13,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.foundation.Image
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import com.example.clotappui.R
+import kotlinx.coroutines.delay
 
 
 @Composable
-fun OnboardingSplashScreen(){
+fun OnboardingSplashScreen(onNext: () -> Unit){
+    LaunchedEffect(Unit) {
+        delay(2000) // 2 seconds
+        onNext()
+    }
    Column(modifier = Modifier.fillMaxSize().background(Color(0xFF9B70FF)).padding(16.dp),
        verticalArrangement = Arrangement.Center,
        horizontalAlignment = Alignment.CenterHorizontally){
@@ -30,10 +36,4 @@ fun OnboardingSplashScreen(){
        )
 
    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun OnboardingSplashScreenPreview(){
-    OnboardingSplashScreen()
 }

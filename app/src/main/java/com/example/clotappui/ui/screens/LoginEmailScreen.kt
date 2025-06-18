@@ -27,7 +27,8 @@ import androidx.compose.ui.*
 
 
 @Composable
-fun LoginEmailScreen(){
+fun LoginEmailScreen(onNext: () -> Unit,
+                     onCreate: () -> Unit){
 
     var email by remember { mutableStateOf("") }
 
@@ -78,7 +79,7 @@ fun LoginEmailScreen(){
             Spacer(modifier = Modifier.height(16.dp))
 
             Button(
-                onClick = {},
+                onClick = onNext,
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF8E6CEF)),
                 shape = RoundedCornerShape(30.dp),
                 modifier = Modifier
@@ -103,7 +104,7 @@ fun LoginEmailScreen(){
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White,
-                    modifier = Modifier.clickable { /* TODO: Navigate */ }
+                    modifier = Modifier.clickable(onClick = onCreate )
                 )
             }
 
@@ -129,12 +130,6 @@ fun LoginEmailScreen(){
     }
 
 
-}
-
-@Preview(showBackground = true)
-@Composable
-fun LoginEmailPreview() {
-    LoginEmailScreen()
 }
 
 

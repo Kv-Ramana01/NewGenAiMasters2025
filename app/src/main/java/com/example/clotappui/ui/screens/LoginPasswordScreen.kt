@@ -17,8 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 @Composable
 fun LoginPasswordScreen(
 
-    onBack: () -> Unit = {},
-    onSignIn: () -> Unit = {}
+    onForgotPassword: () -> Unit, onLoginSuccess: () -> Unit
 ) {
     var password by remember { mutableStateOf("") }
 
@@ -60,7 +59,7 @@ fun LoginPasswordScreen(
         Spacer(Modifier.height(16.dp))
 
         Button(
-            onClick = { onSignIn() },
+            onClick =  onLoginSuccess,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp),
@@ -84,7 +83,7 @@ fun LoginPasswordScreen(
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
-                modifier = Modifier.clickable { /* TODO: Navigate */ }
+                modifier = Modifier.clickable(onClick = onForgotPassword )
             )
         }
         Spacer(Modifier.height(400.dp))
@@ -92,8 +91,3 @@ fun LoginPasswordScreen(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun LoginPasswordScreenPreview() {
-    LoginPasswordScreen()
-}

@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.sp
 
 
 @Composable
-fun PasswordResetSentScreen(onClick: () -> Unit = {}){
+fun PasswordResetSentScreen(onBackToLogin: () -> Unit = {}){
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -59,7 +59,7 @@ fun PasswordResetSentScreen(onClick: () -> Unit = {}){
         Spacer(modifier = Modifier.height(32.dp))
 
         Button(
-            onClick = { onClick() },
+            onClick = onBackToLogin,
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF9A76F0)),
             shape = RoundedCornerShape(30.dp),
             modifier = Modifier.height(50.dp)

@@ -25,8 +25,8 @@ import androidx.compose.material3.IconButton
 
 @Composable
 fun ForgotPasswordScreen(
-    onBack: () -> Unit = {},
-    onReset: () -> Unit = {}
+    onBack: () -> Unit,
+    onResetSent: () -> Unit = {}
 ) {
     var email by remember { mutableStateOf("") }
 
@@ -91,7 +91,7 @@ fun ForgotPasswordScreen(
         Spacer(Modifier.height(24.dp))
 
         Button(
-            onClick = { onReset() },
+            onClick = onResetSent ,
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF9A76F0)),
             shape = RoundedCornerShape(30.dp),
             modifier = Modifier
@@ -101,11 +101,5 @@ fun ForgotPasswordScreen(
             Text("Continue", color = Color.White, fontSize = 16.sp)
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ForgotPasswordScreenPreview() {
-    ForgotPasswordScreen()
 }
 

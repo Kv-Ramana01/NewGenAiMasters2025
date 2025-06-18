@@ -44,7 +44,7 @@ fun BackArrow(onBack: () -> Unit) {
 }
 
 @Composable
-fun CreateAccountScreen(onBack: () -> Unit = {}) {
+fun CreateAccountScreen(onBack: () -> Unit = {},onAccountCreated: () -> Unit = {},onForgotPassword: () -> Unit) {
 
     var firstName by remember { mutableStateOf("") }
     var lastName by remember { mutableStateOf("") }
@@ -180,7 +180,7 @@ fun CreateAccountScreen(onBack: () -> Unit = {}) {
             Spacer(modifier = Modifier.height(52.dp))
 
             Button(
-                onClick = {},
+                onClick = onAccountCreated,
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF8E6CEF)),
                 shape = RoundedCornerShape(30.dp),
                 modifier = Modifier
@@ -205,7 +205,7 @@ fun CreateAccountScreen(onBack: () -> Unit = {}) {
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White,
-                    modifier = Modifier.clickable { /* TODO: Navigate */ }
+                    modifier = Modifier.clickable(onClick = onForgotPassword )
                 )
             }
 
