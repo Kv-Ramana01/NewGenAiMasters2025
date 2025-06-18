@@ -1,8 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
-    id("com.google.gms.google-services")
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.gms.google.services)
 }
 
 android {
@@ -46,8 +46,15 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.3")
 
 
+    // For One Tap
+    implementation("com.google.android.gms:play-services-auth:21.0.0")
+
+// Firebase Auth
     implementation("com.google.firebase:firebase-auth-ktx")
-    implementation("com.google.android.gms:play-services-auth:20.7.0")
+
+// Firebase BoM to manage compatible versions
+    implementation(platform("com.google.firebase:firebase-bom:33.15.0"))
+
 
     implementation(libs.androidx.material.icons.extended)
     implementation(libs.androidx.core.ktx)

@@ -12,7 +12,20 @@
           "package_name": "com.example.clotappui"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "543999363082-ogohl16snjmaluqnvf9poi27ov2k6ee8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.clotappui",
+            "certificate_hash": "b022df09bc183fc1ab930ed28a1ec4e94760b835"
+          }
+        },
+        {
+          "client_id": "543999363082-ke1pihf20majkc1912hb87kl2tvbudid.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDqnCrnxj3pnQTV-7z5qUWBuBPomCAoJs4"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "543999363082-5j502o4ahg1qk6ed2hsmktvh05jhkmiv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

@@ -4,6 +4,7 @@ package com.example.clotappui.ui.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialogDefaults.shape
@@ -17,19 +18,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-
 @Composable
 fun SocialButton(
-    iconRes : Int,
-    txt : String
-){
+    iconRes: Int,
+    txt: String,
+    onClick: () -> Unit = {}
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
             .height(50.dp)
-            .background(Color(0xFF2D2C35),shape = RoundedCornerShape(30.dp))
+            .clickable(onClick = onClick)
+            .background(Color(0xFF2D2C35), shape = RoundedCornerShape(30.dp))
             .padding(horizontal = 20.dp)
-    ){
+    ) {
         Image(
             painter = painterResource(id = iconRes),
             contentDescription = null,
@@ -46,4 +49,3 @@ fun SocialButton(
         )
     }
 }
-

@@ -19,17 +19,21 @@ fun ClotNavGraph(navController: NavHostController) {
         }
 
         composable(Screen.LoginEmail.route) {
-            LoginEmailScreen(onNext = { navController.navigate(Screen.LoginPassword.route) },
+            LoginEmailScreen(navController,
                 onCreate = { navController.navigate("create_account")})
         }
 
-        composable(Screen.LoginPassword.route) {
+        composable(
+            route = Screen.LoginPassword.route + "?email={email}",
+            arguments = listOf(navArgument("email") { defaultValue = "" })
+        ) { backStackEntry ->
+            val email = backStackEntry.arguments?.getString("email") ?: ""
             LoginPasswordScreen(
+                email = email,
                 onForgotPassword = { navController.navigate(Screen.ForgotPassword.route) },
                 onLoginSuccess = {
                     navController.navigate(Screen.Home.route) {
                         popUpTo(0) { inclusive = true }
-                        launchSingleTop = true
                     }
                 }
             )
@@ -57,7 +61,7 @@ fun ClotNavGraph(navController: NavHostController) {
             })
         }
         composable(Screen.Home.route) {
-            HomeScreen()
+            HomeScreen(navController = navController)
         }
     }
 }
