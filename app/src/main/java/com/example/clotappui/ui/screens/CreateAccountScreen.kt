@@ -32,6 +32,16 @@ import androidx.compose.material3.IconButton
 import androidx.compose.ui.platform.LocalContext
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
+import java.security.MessageDigest
+
+object HashUtil {
+    fun sha256(input: String): String {
+        return MessageDigest
+            .getInstance("SHA-256")
+            .digest(input.toByteArray())
+            .joinToString("") { "%02x".format(it) }
+    }
+}
 
 
 @Composable
@@ -190,7 +200,9 @@ fun CreateAccountScreen(onBack: () -> Unit = {},onAccountCreated: () -> Unit = {
                         return@Button
                     }
 
-                    val user = User(firstName, lastName, email, password)
+                    val hashedPassword = HashUtil.sha256(password)
+
+                    val user = User(firstName, lastName, email, hashedPassword)
 
                     db.collection("users")
                         .add(user)
