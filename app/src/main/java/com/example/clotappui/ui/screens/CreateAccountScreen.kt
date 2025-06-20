@@ -1,6 +1,7 @@
 package com.example.clotappui.ui.screens
 
-
+import android.widget.Toast
+import com.example.clotappui.data.User
 import androidx.compose.foundation.Image
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.foundation.background
@@ -28,7 +29,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-
+import androidx.compose.ui.platform.LocalContext
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
 
 
 @Composable
@@ -178,9 +181,27 @@ fun CreateAccountScreen(onBack: () -> Unit = {},onAccountCreated: () -> Unit = {
             )
 
             Spacer(modifier = Modifier.height(52.dp))
-
+            val context = LocalContext.current
+            val db = Firebase.firestore
             Button(
-                onClick = onAccountCreated,
+                onClick = {
+                    if (firstName.isBlank() || lastName.isBlank() || email.isBlank() || password.length < 6) {
+                        Toast.makeText(context, "Please fill all fields correctly", Toast.LENGTH_SHORT).show()
+                        return@Button
+                    }
+
+                    val user = User(firstName, lastName, email, password)
+
+                    db.collection("users")
+                        .add(user)
+                        .addOnSuccessListener {
+                            Toast.makeText(context, "Account created successfully", Toast.LENGTH_SHORT).show()
+                            onAccountCreated()
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(context, "Error: ${it.message}", Toast.LENGTH_SHORT).show()
+                        }
+                },
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF8E6CEF)),
                 shape = RoundedCornerShape(30.dp),
                 modifier = Modifier

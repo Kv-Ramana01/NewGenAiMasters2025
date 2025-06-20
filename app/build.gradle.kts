@@ -41,6 +41,8 @@ android {
 }
 
 dependencies {
+    implementation("com.google.firebase:firebase-firestore-ktx")
+
     implementation(platform("com.google.firebase:firebase-bom:33.15.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("androidx.navigation:navigation-compose:2.7.3")
