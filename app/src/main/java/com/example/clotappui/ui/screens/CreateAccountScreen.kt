@@ -2,6 +2,7 @@ package com.example.clotappui.ui.screens
 
 import android.widget.Toast
 import com.example.clotappui.data.User
+import com.example.clotappui.data.HashUtil
 import androidx.compose.foundation.Image
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.foundation.background
@@ -33,15 +34,6 @@ import androidx.compose.ui.platform.LocalContext
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import java.security.MessageDigest
-
-object HashUtil {
-    fun sha256(input: String): String {
-        return MessageDigest
-            .getInstance("SHA-256")
-            .digest(input.toByteArray())
-            .joinToString("") { "%02x".format(it) }
-    }
-}
 
 
 @Composable

@@ -1,6 +1,8 @@
 package com.example.clotappui.ui.screens
 
 import android.util.Log
+import android.widget.Toast
+import com.example.clotappui.data.HashUtil
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -15,7 +17,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.firestore
 
 @Composable
 fun LoginPasswordScreen(
@@ -25,6 +29,8 @@ fun LoginPasswordScreen(
 
     val context = LocalContext.current
     val auth = FirebaseAuth.getInstance()
+
+    val db = Firebase.firestore
 
     var password by remember { mutableStateOf("") }
     var errorMessage by remember { mutableStateOf<String?>(null) }
@@ -68,14 +74,32 @@ fun LoginPasswordScreen(
 
         Button(
             onClick =  {
-                auth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            Log.d("Firebase","Registration Successful")
-                            onLoginSuccess()
-                        } else {
-                            errorMessage = task.exception?.message
+                if (password.length < 6) {
+                    Toast.makeText(context, "Password too short", Toast.LENGTH_SHORT).show()
+                    return@Button
+                }
+
+                val hashed = HashUtil.sha256(password)
+
+                db.collection("users").
+                    whereEqualTo("email",email)
+                    .get()
+                    .addOnSuccessListener { docs->
+                        if (!docs.isEmpty){
+                            val doc = docs.first()
+                            val stored = doc.getString("password")
+                            if (stored == hashed){
+                                Toast.makeText(context, "Login Successful!", Toast.LENGTH_SHORT).show()
+
+                                onLoginSuccess()
+                            }else{
+                                Toast.makeText(context, "Incorrect password", Toast.LENGTH_SHORT).show()
+                            }
+                        }else {
+                            Toast.makeText(context, "No user found", Toast.LENGTH_SHORT).show()
                         }
+                    }.addOnFailureListener {
+                        Toast.makeText(context, "Login error: ${it.message}", Toast.LENGTH_SHORT).show()
                     }
             },
             modifier = Modifier
